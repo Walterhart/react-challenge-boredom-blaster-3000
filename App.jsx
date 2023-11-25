@@ -27,9 +27,9 @@ export default function App() {
 		7114122, 4151544, 4558850, 3561421, 4286250
 	]
 
-	const [activitiesData, setActivitiesData] = React.useState(placeHolderData) 
+	const [activitiesData, setActivitiesData] = React.useState([]) 
 	// placeHolderData has been imported from placeHolderData.js in the data folder.
-	
+
 	React.useEffect(()=>{
 		const fetchData = async() =>{
 			// Use Promise.all to fetch data for each saved activity key concurrently
