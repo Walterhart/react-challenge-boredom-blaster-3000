@@ -29,6 +29,21 @@ export default function App() {
 
 	const [activitiesData, setActivitiesData] = React.useState(placeHolderData) 
 	// placeHolderData has been imported from placeHolderData.js in the data folder.
+	
+	React.useEffect(()=>{
+		const fetchData = async() =>{
+			// Use Promise.all to fetch data for each saved activity key concurrently
+			const response = await Promise.all(savedActivityKeys.map((key)=>{
+				return fetch(`https://apis.scrimba.com/bored/api/activity?key=${key}`)
+			}))
+			// Use Promise.all to parse JSON data for each response
+			const data = await Promise.all(response.map((res)=>{
+				return res.json()
+			}))
+			setActivitiesData(data)
+		}
+		fetchData()
+	},[])
 
 	const activityCardElements = activitiesData.map((activityData, index) => (
 		<ActivityCard key={activityData.key} number={index + 1} {...activityData} />
